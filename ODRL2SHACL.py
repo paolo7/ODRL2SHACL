@@ -21,7 +21,7 @@ shape_prefixes = """@prefix dash: <http://datashapes.org/dash#> .
 @prefix odrl: <http://www.w3.org/ns/odrl/2/> .
 
 """
-odrl_feature_list = ["action","target","assignee"]
+odrl_feature_list = ["action","target","assignee","assigner","purpose"]
 odrl_rule_dict={
     "P": "odrl:permission",
     "F": "odrl:prohibition",
@@ -133,7 +133,8 @@ def process_rule(type, role, graph, rule):
             rule_obj[odrl_feature]["refinements"] = process_constraint(type, role, graph, feature, ODRL.refinement)
         else:
             rule_obj[odrl_feature] = None
-    rule_obj[odrl_feature]["constraints"] = process_constraint(type, role, graph, rule, ODRL.constraint)
+    if rule_obj[odrl_feature]:
+        rule_obj[odrl_feature]["constraints"] = process_constraint(type, role, graph, rule, ODRL.constraint)
 
     if role == "requester":
         if type == "P":

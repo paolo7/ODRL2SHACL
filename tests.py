@@ -13,15 +13,27 @@ def testMatch(g_string,g2string,match):
     return validation_result[0] == match
 
 def run_tests():
+    tests_passed = 0
     all_pass = True
+    for instance in examples.all_ODRLs:
+        match_check = testMatch(instance,instance,True)
+        all_pass = all_pass and match_check
+        if not match_check:
+            print("Test failed: Match because they are identical")
+        else: tests_passed += 1
     for pair in examples.matching_pairs:
         match_check = testMatch(pair[0],pair[1],True)
         all_pass = all_pass and match_check
         if not match_check:
             print("Test failed: "+pair[2])
+        else:
+            tests_passed += 1
     for pair in examples.conflict_pairs:
         match_check = testMatch(pair[0],pair[1],False)
         all_pass = all_pass and match_check
         if not match_check:
             print("Test failed: "+pair[2])
+        else:
+            tests_passed += 1
+    print("N. of passed tests: "+str(tests_passed))
     return all_pass

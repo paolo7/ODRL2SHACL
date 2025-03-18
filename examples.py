@@ -8,31 +8,6 @@ example_prefixes = """
 @prefix ex: <http://example.ex/> .
 @prefix odrl: <http://www.w3.org/ns/odrl/2/> .
 """
-sample_odrl = {
-    "simple_permission": example_prefixes+"""
-
-<http://example.com/policy:01>
-    a odrl:Policy;
-    odrl:permission [
-        a odrl:Permission ;
-        odrl:target ex:PartA ;
-        odrl:action odrl:print ;
-        odrl:assignee ex:Bob ;
-    ] .
-""",
-
-    "simple_prohibition": example_prefixes+"""
-
-<http://example.com/policy:01>
-    a odrl:Policy;
-    odrl:obligation [
-        a odrl:Obligation ;
-        odrl:target ex:PartA ;
-        odrl:action odrl:print ;
-        odrl:assignee ex:Bob ;
-    ] .
-"""
-}
 
 upcast_example_1 = example_prefixes+"""
 
@@ -179,8 +154,13 @@ upcast_example_3_minimal = example_prefixes+"""
   ] .
 """
 
+all_ODRLs = [
+    upcast_example_1_minimal,
+    upcast_example_2_minimal,
+    upcast_example_3_minimal,
+]
+
 matching_pairs = [
-    (upcast_example_1_minimal, upcast_example_1_minimal, "Match because they are identical"),
     (upcast_example_1_minimal, upcast_example_3_minimal, "Match because the second is more general"),
 ]
 conflict_pairs = [

@@ -275,8 +275,7 @@ def compare_policies_wrt_conflict_case(g_one,g_two,role_one, role_two, conflict_
     return messages
 
 
-# graph_one and graph_two are two string serialisations of ODRL in one of the following formats:
-# 'json-ld', 'turtle', 'xml', 'nt', 'n3', 'trig', 'nquads'
+# p_one and p_two are two rdflib graph objects representing a single ODRL policy each
 # role_one and role_two are one of the following strings
 # "any", "requester", "provider"
 def compare_policies(p_one,p_two, p_one_role = "any", p_two_role = "any"):
@@ -284,8 +283,8 @@ def compare_policies(p_one,p_two, p_one_role = "any", p_two_role = "any"):
         raise ValueError("Undefined Semantics. At least one role is not set to the accepted values of 'requester', 'provider' or 'any'.")
     if (p_one_role == "any" and p_two_role != "any") | (p_one_role != "any" and p_two_role == "any"):
         raise ValueError("Undefined Semantics. One role is set to 'any', but the other one is not.")
-    g_one = standardise_graph(parse_unknown_rdf(p_one))
-    g_two = standardise_graph(parse_unknown_rdf(p_two))
+    g_one = standardise_graph(p_one)
+    g_two = standardise_graph(p_two)
     g_one_id = list(g_one.subjects(predicate=RDF.type, object=URIRef("http://www.w3.org/ns/odrl/2/Policy")))
     g_two_id = list(g_one.subjects(predicate=RDF.type, object=URIRef("http://www.w3.org/ns/odrl/2/Policy")))
     if len(g_one_id) != 1 & len(g_two_id) != 1:
@@ -322,4 +321,11 @@ def compare_policies(p_one,p_two, p_one_role = "any", p_two_role = "any"):
             )
     return json.dumps(conflict_data, indent=2)
 
-
+# p_one and p_two are two string serialisations of ODRL in one of the following formats:
+# 'json-ld', 'turtle', 'xml', 'nt', 'n3', 'trig', 'nquads'
+# role_one and role_two are one of the following strings
+# "any", "requester", "provider"
+def compare_policies_from_string(p_one,p_two, p_one_role = "any", p_two_role = "any"):
+    g_one = parse_unknown_rdf(p_one)
+    g_two = parse_unknown_rdf(p_two)
+    return compare_policies(g_one, g_two, p_one_role, p_two_role)

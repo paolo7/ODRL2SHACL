@@ -17,12 +17,13 @@ Required libraries:
 
 ## Usage
 
-To compare two policies, call the `compare_policies` function in `ODRL2SHACL.py`.
-This function takes two mandatory arguments: the first two are two string serialisations of ODRL in one of the following 
+To compare two policies, call the `compare_policies` or the `compare_policies_from_string` functions in `ODRL2SHACL.py`.
+This `compare_policies_from_string` function takes two mandatory arguments: the first two are two string serialisations of ODRL in one of the following 
 formats: 'json-ld', 'turtle', 'xml', 'nt', 'n3', 'trig', 'nquads'. The remaining two optional arguments, `role_one` and 
 `role_two` are one of the following strings "any", "requester", "provider". You can either set one role as provider and 
 one as requester, to check whether the requester policy is strictier than the provider, or set both to "any" to consider
-both cases. If the "any" role is chosen, this function effectively checks for equivalence of the two policies.
+both cases. If the "any" role is chosen, this function effectively checks for equivalence of the two policies. The
+`compare_policies` function behaves exactly the same but takes two rdflib graph objects instead of their string serialisation.
 
 The `compare_policies` function returns a JSON object that follows this schema:
 ```

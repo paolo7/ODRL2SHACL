@@ -21,18 +21,18 @@ def testGraph(g_string,g2string):
 
 print("All tests successful: "+str(tests.run_tests()))
 
-json_result = ODRL2SHACL.compare_policies(examples.upcast_example_1_minimal,examples.upcast_example_2_minimal,"requester","provider")
+json_result = ODRL2SHACL.compare_policies_from_string(examples.upcast_example_1_minimal,examples.upcast_example_2_minimal,"requester","provider")
 
 print(json_result)
 
-json_result = ODRL2SHACL.compare_policies(examples.example_12,examples.example_14,"requester","provider")
+json_result = ODRL2SHACL.compare_policies_from_string(examples.example_12,examples.example_14,"requester","provider")
 
 print(json_result)
 
-json_result = ODRL2SHACL.compare_policies(examples.example_22,examples.example_19,"requester","provider")
+json_result = ODRL2SHACL.compare_policies_from_string(examples.example_22,examples.example_19,"requester","provider")
 
 print(json_result)
 
-json_result = ODRL2SHACL.compare_policies(examples.example_22,examples.example_19,"any","any")
+json_result = ODRL2SHACL.compare_policies_from_string(examples.example_22,examples.example_19,"any","any")
 
 print(json_result)
